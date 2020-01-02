@@ -7,6 +7,35 @@ import sys
 from datetime import date
 from pathlib import Path, PurePath
 from subprocess import CalledProcessError, run
+from typing import Dict
+
+
+def _run(args: str) -> Dict[str, str]:
+    """Run a command with arguments.
+
+    Args:
+        args (str): A string of program arguments.
+
+    Returns:
+        Dict[str, str]: The program's stderr and stdout.
+    """
+    try:
+        sp = run(shlex.split(args), capture_output=True)
+        sp.check_returncode()
+        outputs = {"stderr": sp.stderr, "stdout": sp.stdout}
+        for stream, output in outputs.items():
+            outputs[stream] = output.decode().rstrip()
+        return outputs
+    except CalledProcessError as e:
+        print(e.stderr, file=sys.stderr)
+        sys.exit(e.returncode)
+
+
+def commit_count(since: str = "today") -> int:
+    args = f"git rev-list origin/master --count --since '{since}'"
+    outputs = _run(args)
+    count = int(outputs["stdout"])
+    return count
 
 
 def git_add(pathspec: str) -> None:
@@ -16,12 +45,8 @@ def git_add(pathspec: str) -> None:
         pathspec (str): Files to add content from.
 
     """
-    args = shlex.split(f"git add {pathspec}")
-    try:
-        run(args, capture_output=True, check=True)
-    except CalledProcessError as e:
-        print(e.stderr, file=sys.stderr)
-        sys.exit(e.returncode)
+    args = f"git add {pathspec}"
+    _run(args)
 
 
 def replace(file: str, pattern: str, replacement: str) -> bool:
@@ -50,18 +75,23 @@ def replace(file: str, pattern: str, replacement: str) -> bool:
 
 
 def update_version(file: str) -> None:
-    """Find the CalVer string in a file and replace it today's date.
+    """Find a CalVer string in a file and replace it today's date.
+
+    A micro-version will be added based on the number of commits made today.
 
     Args:
         file (str): The file that contains a CalVer string.
 
     See Also:
         https://calver.org/
-
+ 
     """
-    pattern = r"\d{4}\.\d{1,2}\.\d{1,2}"
-    today = date.today().strftime(r"%Y.%m.%d")
-    if replace(file, pattern, today):
+    pattern = r"\d{4}\.\d{1,2}\.\d{1,2}(.\d+)?"
+    version = date.today().strftime(r"%Y.%-m.%-d")
+    micro = commit_count(since="today")
+    if micro:
+        version += f".{micro}"
+    if replace(file, pattern, version):
         git_add(file)
 
 
