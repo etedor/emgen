@@ -31,7 +31,7 @@ def _run(args: str) -> Dict[str, str]:
         sys.exit(e.returncode)
 
 
-def commit_count(since: str = "today") -> int:
+def commit_count(since: str = "00:00") -> int:
     args = f"git rev-list origin/master --count --since '{since}'"
     outputs = _run(args)
     count = int(outputs["stdout"])
@@ -88,7 +88,7 @@ def update_version(file: str) -> None:
     """
     pattern = r"\d{4}\.\d{1,2}\.\d{1,2}(.\d+)?"
     version = date.today().strftime(r"%Y.%-m.%-d")
-    micro = commit_count(since="today")
+    micro = commit_count(since="00:00")
     if micro:
         version += f".{micro}"
     if replace(file, pattern, version):

@@ -1,5 +1,5 @@
 # Emgen 📧
-[![Versioning: CalVer](https://img.shields.io/badge/calver-YYYY.0M.0D-22bfda.svg)](https://calver.org)
+[![Versioning: CalVer](https://img.shields.io/badge/calver-YYYY.MM.DD.MICRO-22bfda.svg)](https://calver.org)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/github/license/etedor/emgen.svg)](https://github.com/etedor/emgen/blob/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/emgen.svg)](https://pypi.org/project/emgen/)
