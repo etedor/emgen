@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 
-import random
-from string import ascii_lowercase, digits
+import secrets
+import string
 
-CHARS = ascii_lowercase + digits
+CHARS = string.digits + string.ascii_lowercase
 
 
 def localpart(length: int = 8) -> str:
@@ -26,6 +26,5 @@ def localpart(length: int = 8) -> str:
     """
     if not 1 <= length <= 64:
         raise ValueError(f"invalid value for `length`: {length}")
-    r = random.SystemRandom()
-    lp = "".join(r.choices(CHARS, k=length))
+    lp = "".join(secrets.choice(CHARS) for _ in range(length))
     return lp

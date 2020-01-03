@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 
-from string import ascii_lowercase, digits
+import string
 
 from emgen.core import localpart
 
-CHARS = digits + ascii_lowercase
+CHARS = string.digits + string.ascii_lowercase
 
 
 def test_localpart(trials: int = 99_999, length: int = 8) -> None:
