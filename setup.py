@@ -13,7 +13,7 @@ setup(
     long_description=Path("./README.md").read_text(),
     long_description_content_type="text/markdown",
     author="Eric Tedor",
-    author_email="b7feaey0@eric.tedor.org",
+    author_email="eric@tedor.org",
     url="https://github.com/etedor/emgen",
     download_url="https://github.com/etedor/emgen",
     packages=find_packages(),

@@ -84,7 +84,7 @@ def update_version(file: str) -> None:
 
     See Also:
         https://calver.org/
- 
+
     """
     pattern = r"\d{4}\.\d{1,2}\.\d{1,2}(.\d+)?"
     version = date.today().strftime(r"%Y.%-m.%-d")
