@@ -8,6 +8,7 @@ black = "*"
 flake8 = "*"
 pydocstyle = "*"
 pytest = "*"
+faker = "*"
 
 [packages]
 pyperclip = "*"

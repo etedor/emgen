@@ -15,20 +15,10 @@ $ pip3 install --user emgen
 ```
 
 ## Usage
+Generate a random email address:
 ```
-$ emgen --help
-usage: emgen [-h] [-c] [-d DOMAIN] [-l LENGTH] [-v]
-
-Generate random email addresses.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -c, --clipboard       copy addr to clipboard (default: False)
-  -d DOMAIN, --domain DOMAIN
-                        set the addr domain portion (default: example.com)
-  -l LENGTH, --length LENGTH
-                        length of the local-part (from 1 to 64) (default: 8)
-  -v, --version         show program's version number and exit
+$ emgen
+mt1ivirn@example.com
 ```
 
 Generate an email address for your domain `corgi.example`:
@@ -39,7 +29,7 @@ aiemil8u@corgi.example
 
 Generate a long email address for your domain `dane.example`:
 ```
-$ emgen --domain dane.example --length 16
+$ emgen -d dane.example --length 16
 vqjo0h8y4z2dgetd@dane.example
 ```
 
@@ -51,6 +41,15 @@ yx4su4olx2uq@greyhound.example
 $ # display the contents of your clipboard:
 $ xclip -sel clip -o
 yx4su4olx2uq@greyhound.example
+```
+
+### Subaddressing
+Emgen can generate random tags if your email provider supports [subaddressing](https://tools.ietf.org/html/rfc5233), such as [FastMail's](https://www.fastmail.com/help/receive/addressing.html)  or [Gmail's](https://gmail.googleblog.com/2008/03/2-hidden-ways-to-get-more-from-your.html) plus addressing.
+
+Generate a tag for your Gmail account `john.doe84`:
+```
+$ emgen -d gmail.example --username john.doe84
+john.doe84+7usnoxla@gmail.example
 ```
 
 ## License
