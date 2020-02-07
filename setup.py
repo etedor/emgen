@@ -39,5 +39,5 @@ setup(
     platforms=["any"],
     include_package_data=True,
     entry_points={"console_scripts": ["emgen=emgen.cli:main"]},
-    install_requires=["pyperclip"],
+    install_requires=["email_validator", "pyperclip"],
 )
