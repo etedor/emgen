@@ -5,6 +5,7 @@ import sys
 import textwrap
 
 import pyperclip
+from email_validator import EmailNotValidError, validate_email
 
 from emgen import __version__
 from emgen.core import local_part
@@ -122,6 +123,13 @@ def main():
 
     local = local_part(args.length, args.username, args.separator)
     addr = f"{local}@{args.domain}"
+
+    try:
+        validate_email(addr)
+    except EmailNotValidError as e:
+        message = str(e).lower().rstrip(".")
+        print("error:", message)
+        sys.exit(1)
 
     if args.clipboard:
         if has_clipboard:

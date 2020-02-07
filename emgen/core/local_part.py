@@ -39,9 +39,6 @@ def local_part(
         chars = "0123456789abcdefghijklmnopqrstuvwxyz"
         return "".join(secrets.choice(chars) for _ in range(length))
 
-    if not 1 <= length <= 64:
-        raise ValueError(f"invalid value for `length`: {length}")
-
     if username:
         combined = len(username + separator)
         if combined + length >= 64:

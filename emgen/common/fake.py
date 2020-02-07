@@ -7,10 +7,11 @@ from faker.providers import BaseProvider
 
 
 class _Provider(BaseProvider):
-    prefix_dot = ["{{first_name}}", "{{last_name}}"]
-    prefix_no_dot = prefix_dot + ["{{random_letter}}"]
-    prefixes = [".".join(perm) for perm in permutations(prefix_dot)]
-    prefixes += ["".join(perm) for perm in permutations(prefix_no_dot, 2)]
+    first_last_full = ["{{first_name}}", "{{last_name}}"]
+    first_last_init = first_last_full + ["{{random_letter}}"]
+    prefixes = ["_".join(perm) for perm in permutations(first_last_full)]
+    prefixes += [".".join(perm) for perm in permutations(first_last_full)]
+    prefixes += ["".join(perm) for perm in permutations(first_last_init, 2)]
     suffixes = ["", "{{year}}", "#", "##", "###", "####", "#####"]
     username_formats = []
     for prefix in prefixes:
